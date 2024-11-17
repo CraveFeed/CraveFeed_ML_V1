@@ -3,13 +3,13 @@ import pandas as pd
 import random
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
-from mimesis import Generic
+from mimesis import Generic, Address
 import subprocess
 import json
 import logging
 
 # Load environment variables
-load_dotenv(dotenv_path="../.env")  # Adjust this path if needed
+load_dotenv(dotenv_path=".env")  # Adjust this path if needed
 
 # Function to generate text using Ollama Llama2
 def generate_text_ollama(prompt):
@@ -66,6 +66,7 @@ def generate_food_data(num_posts=100):
     """
     # Initialize Generic for generating data
     generic = Generic()
+    address = Address()
 
     # Generate post IDs
     post_ids = [f"P{str(i).zfill(5)}" for i in range(1, num_posts + 1)]
@@ -97,16 +98,21 @@ def generate_food_data(num_posts=100):
     # Generate business post flags
     business_flag = [random.choice([True, False]) for _ in range(num_posts)]
 
+    # Generate latitude and longitude
+    latitudes = [address.latitude() for _ in range(num_posts)]
+    longitudes = [address.longitude() for _ in range(num_posts)]
+
     # Construct the DataFrame
     data = {
         "postId": post_ids,
         "title": titles,
-        "description": descriptions,
         "impressions": impressions,
         "likesCount": likes,
         "commentsCount": comments,
         "createdAt": timestamps,
         "isBusinessPost": business_flag,
+        "latitude": latitudes,
+        "longitude": longitudes,
     }
 
     return pd.DataFrame(data)
@@ -118,7 +124,7 @@ try:
     food_data = generate_food_data(num_posts=num_posts)
 
     # Save to CSV
-    output_path = "./data/food_popularity_data.csv"
+    output_path = "./data/raw/food_popularity_data.csv"
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     food_data.to_csv(output_path, index=False)
 
