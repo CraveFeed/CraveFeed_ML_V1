@@ -9,8 +9,10 @@ import sys
 source_path = "./data/raw/food_popularity_data.csv"
 data = pd.read_csv(source_path)
 
-# Ensure createdAt is a datetime object
-data["createdAt"] = pd.to_datetime(data["createdAt"])
+# Ensure createdAt is a datetime object and normalize to a consistent format
+data["createdAt"] = pd.to_datetime(data["createdAt"], format="%Y-%m-%dT%H:%M:%S", errors='coerce').fillna(
+    pd.to_datetime(data["createdAt"], format="%Y-%m-%d", errors='coerce')
+)
 
 # Get current date
 current_date = datetime.now()
