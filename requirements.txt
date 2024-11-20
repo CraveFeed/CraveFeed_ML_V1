@@ -14,3 +14,5 @@ mimesis
 pytz 
 python-dateutil
 fastapi
+uvicorn
+pydantic
