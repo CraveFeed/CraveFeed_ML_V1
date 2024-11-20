@@ -98,9 +98,9 @@ data.to_csv(output_path, index=False)
 # # Display Processed Data
 # print(data.head())
 
-# Get only the postid column from the sorted data
-recommended_post_ids = data["postId"].tolist()
+# Get only the unique postId column from the sorted data
+recommended_post_ids = data["postId"].drop_duplicates().tolist()  # Updated here
 
-# Print the postid values as a newline-separated list
-for post_id in recommended_post_ids:
+# Print the unique postId values as a newline-separated list
+for post_id in recommended_post_ids:  # Updated here
     print(post_id)
