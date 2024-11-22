@@ -60,7 +60,7 @@ async def add_post(post: Post):
 
         # Step 2: Run the popularity-based script (processing only, no recommendations returned)
         command = [
-            VENV_PYTHON_PATH,
+            "python",
             PROCESSED_SCRIPT_PATH,
             str(post.latitude),
             str(post.longitude),

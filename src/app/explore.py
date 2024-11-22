@@ -43,7 +43,7 @@ async def get_recommendations(location: LocationRequest):
         
         # Construct the command to run the script using the virtual environment's Python
         command = [
-            VENV_PYTHON_PATH, 
+            "python", 
             POPULARITY_BASED_SCRIPT_PATH,
             str(location.latitude),  # Use latitude
             str(location.longitude)   # Use longitude
