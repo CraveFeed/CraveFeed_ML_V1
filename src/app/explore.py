@@ -36,6 +36,7 @@ async def get_recommendations(location: LocationRequest):
     Returns:
         dict: A JSON object containing the recommended post IDs in order of recommendation strength.
     """
+    print("this api is being called")
     try:
         # Check if processed data file exists
         if not os.path.exists(PROCESSED_DATA_PATH):
